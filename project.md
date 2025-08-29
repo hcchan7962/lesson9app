@@ -3,10 +3,10 @@ This project is a minimal Streamlit app that accepts a system prompt, contextual
 ## Phased Implementation Checklist
 
 ### Phase 1 — MVP (Non‑streaming)
-- [ ] Phase 1.1 — Sidebar key input and session state
-  - [ ] Add `OpenRouter API Key` password input
-  - [ ] Save to `st.session_state["openrouter_api_key"]` on change
-  - [ ] Show warning if missing when clicking “Stream Response”
+- [x] Phase 1.1 — Sidebar key input and session state
+  - [x] Add `OpenRouter API Key` password input
+  - [x] Save to `st.session_state["openrouter_api_key"]` on change
+  - [x] Show warning if missing when clicking “Stream Response”
 
 - [ ] Phase 1.2 — Input model and validation
   - [ ] Create `PromptInput` model with `system`, `context`, `question`, `model`, `temperature`, `max_tokens`

@@ -54,8 +54,16 @@ def render_ui() -> None:
 
         st.markdown("\n")
         st.write(":material/rocket_launch: Actions")
+        action_status = st.empty()
         stream_btn: bool = st.button("Stream Response", use_container_width=True)
         clear_btn: bool = st.button("Clear", type="secondary", use_container_width=True)
+
+        if stream_btn:
+            api_key_value: str = st.session_state.get("openrouter_api_key", "").strip()
+            if not api_key_value:
+                action_status.warning("OpenRouter API key is required to send requests.")
+            else:
+                action_status.info("API key detected. Ready to send request (mock only).")
 
     st.markdown("---")
     st.subheader("Response")
@@ -70,18 +78,43 @@ def render_ui() -> None:
 
     with st.sidebar:
         st.header("Run Settings")
+        if "openrouter_api_key" not in st.session_state:
+            st.session_state["openrouter_api_key"] = ""
+
+        def _normalize_api_key() -> None:
+            st.session_state["openrouter_api_key"] = (
+                st.session_state.get("openrouter_api_key", "").strip()
+            )
+
         openrouter_api_key: str = st.text_input(
             "OpenRouter API Key",
             placeholder="sk-or-...",
             type="password",
             help="Paste your OpenRouter API key here (stored only in session).",
+            key="openrouter_api_key",
+            on_change=_normalize_api_key,
         )
+        key_is_set: bool = bool(st.session_state.get("openrouter_api_key", ""))
+        if key_is_set:
+            st.success("API key set in session")
+            st.caption(
+                f"Stored (masked). Length: {len(st.session_state['openrouter_api_key'])}"
+            )
+        else:
+            st.warning("No API key set")
+
+        def _clear_api_key() -> None:
+            st.session_state["openrouter_api_key"] = ""
+
+        st.button("Clear API Key", on_click=_clear_api_key, use_container_width=True)
         enable_langfuse: bool = st.toggle("Enable Langfuse tracing", value=True)
         session_name: str = st.text_input(
             "Session name", placeholder="e.g., demo-session"
         )
         user_id: str = st.text_input("User id", placeholder="optional")
         st.caption("This is a UI mockup. No logic or integrations are implemented.")
+
+    # Note: additional validation and request execution will be added in later phases.
 
 
 def main() -> None:
