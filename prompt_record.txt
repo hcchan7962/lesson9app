@@ -1,0 +1,3 @@
+I am an motion engineer need to do data visualization. I receive many time domain data with many columns like, Command, Encoder, Current etc. I would like to build a web to plot the graphs with streamlit. please generate a mock up UI without any functional logic yet before I called ACT
+
+please generate a description of this tool to "project_description.md" of this project.
