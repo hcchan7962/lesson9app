@@ -15,10 +15,11 @@ with st.sidebar:
         accept_multiple_files=True,
         help="Multiple files allowed. Parsing not implemented.",
     )
-    st.selectbox(
-        "Select dataset",
-        options=["— None —", "Mock Dataset A", "Mock Dataset B"],
-        index=0,
+    st.multiselect(
+        "Select dataset(s)",
+        options=["Mock Dataset A", "Mock Dataset B"],
+        default=[],
+        help="Choose one or more datasets to compare (mock only).",
     )
     st.divider()
 
